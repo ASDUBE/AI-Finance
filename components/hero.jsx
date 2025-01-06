@@ -1,10 +1,31 @@
 'use client';
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Button } from './ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
 
 const HeroSection = () => {
+  const imageRef = useRef();
+
+  useEffect(() => {
+    const imageElement = imageRef.current;
+
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY;
+      const scrollThreshold = 100;
+
+      if (scrollPosition > scrollThreshold) {
+        imageElement.classList.add('scrolled');
+      } else {
+        imageElement.classList.remove('scrolled');
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
   return (
     <div className="pb-20 px-4">
       <div className="container text-center mx-auto">
@@ -16,7 +37,7 @@ const HeroSection = () => {
           An AI-powered financial management platform that helps you track,
           analyze, and optimize your spending with real-time insights.
         </p>
-        <div>
+        <div className="flex justify-center space-x-4">
           <Link href="/dashboard">
             <Button size="lg" className="px-8">
               Get started
@@ -28,8 +49,8 @@ const HeroSection = () => {
             </Button>
           </Link>
         </div>
-        <div>
-          <div>
+        <div className="hero-image-wrapper">
+          <div ref={imageRef} className="hero-image">
             <Image
               src="/banner.jpeg"
               width={1280}
