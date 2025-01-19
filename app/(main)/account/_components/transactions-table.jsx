@@ -123,6 +123,18 @@ const TransactionTable = ({ transactions }) => {
               <SelectItem value="non-recurring">Non-Recurring Only</SelectItem>
             </SelectContent>
           </Select>
+
+          {selectedIds.length > 0 && (
+            <div>
+              <Button
+                variant="destructive"
+                size="small"
+                onClick={handleBulkDelete}
+              >
+                Delete Selected ({selectedIds.length})
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
