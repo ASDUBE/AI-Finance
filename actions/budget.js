@@ -64,6 +64,7 @@ export async function getCurrentBudget(accountId) {
 }
 
 export async function updateBudget(amount) {
+  console.log('received by updateBudget:', amount);
   try {
     const { userId } = await auth();
     if (!userId) throw new Error('Unauthorized');
@@ -87,7 +88,7 @@ export async function updateBudget(amount) {
         amount,
       },
     });
-
+    console.log('Budget updated/created in database:', budget);
     revalidatePath('/dashboard');
     return {
       success: true,
